@@ -8,15 +8,14 @@ import { TypeOrmModule } from '@nestjs/typeorm';
   imports: [
     TasksModule,
     TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: 'postgres',
-      database: 'task-management',
-      autoLoadEntities: true,
-      synchronize: true,
-    })
+      type: 'mysql',
+      host: process.env.DB_HOST || 'localhost',
+      username:   process.env.DATABASE_USER || 'root',
+      password: process.env.DATABASE_PASSWORD || null,
+      database: process.env.DATABASE_NAME || 'taskmanagement',
+      synchronize: false,
+      entities: [__dirname + '/**/*.entity{.ts,.js}'],
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],
